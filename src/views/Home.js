@@ -4,15 +4,20 @@ import digitalclochard from '../assets/img/digitalclochard.gif';
 const Home = () => {
     return (
         <div>
-            <img src={digitalclochard} className="logo" alt="logo" />
             <p>
                 Welcome to Barbone digitale.
             </p>
+            <img src={digitalclochard} className="logo" alt="logo" />
+
             <p>
                 Registrati ed inizia il tuo sogno nella digital homelessness.
             </p>
             <p>
                 <Link to="/register">Registrati</Link>
+            </p>
+            <p>Hai già un account?</p>
+            <p>
+                <Link to="/login">LOGIN</Link>
             </p>
         </div>
     );
