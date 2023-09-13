@@ -1,7 +1,7 @@
 // importiamo Link dalla libreria
 import { Link } from 'react-router-dom';
 
-const Navbar = () => {
+const Navbar = ({ handleLogout }) => {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <h1 className="text-primary">Control Panel</h1>
@@ -16,8 +16,8 @@ const Navbar = () => {
                 <div className="collapse navbar-collapse" id="navbarSupportedContent">
                     <ul className="navbar-nav me-auto mb-2 mb-lg-0">
                         <li className="nav-item">
-                            <Link to="/" className="navbar-brand">Home</Link>
-                        </li>
+                            <button onClick={handleLogout}>Logout</button>
+                        </li>v
                         <li className="nav-item">
                             <Link className="nav-link" href="#">Link</Link>
                         </li>

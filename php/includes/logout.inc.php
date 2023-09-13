@@ -1,4 +1,6 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
 //prendiamo la sessione esistente, per fare l'unset ci serve per forza lo start
 session_start();
 //svuota tutte le variabili di sessione e pulisce l'array della superglobal $_SESSION
