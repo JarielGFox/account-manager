@@ -6,7 +6,7 @@ if (!isset($_SESSION)) {
 class Register extends Dbh
 {
     //metodo che registra nuovo utente
-    protected function setUser($username, $password, $email)
+    protected function setUser($username, $email, $password)
     {
         //prepariamo l'SQL statement con i placeholder da bindare per evitare SQLInjections
         $stmt = $this->connect()->prepare('INSERT INTO accounts (username, email, password, role) VALUES (?,?,?,0)');
@@ -16,7 +16,7 @@ class Register extends Dbh
         // var_dump($username, $hashedpsw, $email);
 
         //esegue lo statement preparato, se fallisce manda un JSON error message ed imposta il response code a 400
-        if (!$stmt->execute(array($username, $hashedpsw, $email))) {
+        if (!$stmt->execute(array($username, $email, $hashedpsw))) {
             echo json_encode((['error' => 'Statement failed']));
             http_response_code(400);
             exit();
@@ -24,7 +24,7 @@ class Register extends Dbh
     }
 
     //questo metodo va a controllare se l'utente è presente nel DB con username o psw
-    protected function checkUser($email, $username)
+    protected function checkUser($username, $email)
     {
         //statement preparato e cerca tra l'user selezionato o la mail selezionata
         $stmt = $this->connect()->prepare('SELECT username FROM accounts WHERE username = ? OR email = ?;');
@@ -32,7 +32,7 @@ class Register extends Dbh
         // var_dump($username, $email);
 
         //esegue lo statement preparato con l'email e l'username
-        $stmt->execute(array($email, $username));
+        $stmt->execute(array($username, $email));
 
         //se lo statement dà errore, manda un JSON error message ed imposta il response code a 400
         if ($stmt->errorInfo()[0] !== '00000') {

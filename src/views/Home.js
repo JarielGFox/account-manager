@@ -10,7 +10,7 @@ const Home = () => {
             <img src={digitalclochard} className="logo" alt="logo" />
 
             <p>
-                Registrati ed inizia il tuo sogno nella digital homelessness.
+                Registrati ed inizia il tuo viaggio nella digital homelessness.
             </p>
             <p>
                 <Link to="/register">Registrati</Link>

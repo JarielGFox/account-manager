@@ -1,13 +1,23 @@
 <?php
+header("Access-Control-Allow-Origin: *");
+header("Access-Control-Allow-Headers: Content-Type");
 
 require_once('../classes/dbh.classes.php');
 require_once('../classes/login.classes.php');
 require_once('../classes/logincontr.classes.php');
 
-if (isset($_POST['submit'])) {
+if (!isset($_SESSION)) {
+    session_start();
+}
+
+$rawData = file_get_contents('php://input');
+$jsonData = json_decode($rawData, true);
+
+// perchè nella chiamata API il content-type è application/json
+if (!empty($jsonData)) {
     //prendiamo i dati necessari al login
-    $username = $_POST['username'];
-    $password = $_POST['password'];
+    $username = $jsonData['username'];
+    $password = $jsonData['password'];
 
     //istanziamo la classe
     $login = new LoginContr($username, $password);

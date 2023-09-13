@@ -52,7 +52,9 @@ class Login extends Dbh
             $user = $stmt->fetchAll(PDO::FETCH_ASSOC);
 
             //viene inizializzata una nuova sessione e lo username viene salvato nell'array della superglobal $_SESSION
-            session_start();
+            if (!isset($_SESSION)) {
+                session_start();
+            }
             $_SESSION['id'] = $user[0]['id'];
             $_SESSION['username'] = $user[0]['username'];
 

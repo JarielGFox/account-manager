@@ -44,7 +44,7 @@ const Register = () => {
             console.error('There was a problem with the registration:', error.message);
             // Here you can display the error message to the user
         }
-    }
+    };
 
 
     return (

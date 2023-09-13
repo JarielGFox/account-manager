@@ -50,12 +50,12 @@ class RegisterContr extends Register
             exit();
         }
 
-        $this->setUser($this->username, $this->password, $this->email);
+        $this->setUser($this->username, $this->email, $this->password);
     }
 
     private function emptyInput()
     {
-        return !(empty($this->password) || empty($this->username) || empty($this->password_confirmation) || empty($this->email));
+        return !(empty($this->username) || empty($this->email) || empty($this->password) || empty($this->password_confirmation));
     }
 
     private function invalidUser()
