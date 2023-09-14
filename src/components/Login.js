@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
+import ShowMessage from "./ShowMessage";
 
 const Login = () => {
     // State del form
@@ -9,6 +10,9 @@ const Login = () => {
     });
 
     const navigate = useNavigate();
+
+    //stato per il messaggio di errore
+    const [messageFromServer, setMessageFromServer] = useState(null);
 
     // Handle form input changes
     const handleChange = (e) => {
@@ -37,15 +41,17 @@ const Login = () => {
                 throw new Error(data.error || 'Something went wrong');
             }
 
-            console.log('User logged in correctly:', data);
+            setMessageFromServer(JSON.stringify(data));
             navigate('/main');  // Navigate to the Main.js view
         } catch (error) {
             console.error('There was a problem with the login:', error.message)
+            setMessageFromServer(JSON.stringify({ error: error.message }));
         }
     };
 
     return (
         <div>
+            <ShowMessage messageFromServer={messageFromServer} />
             <form onSubmit={handleLogin}>
                 <label htmlFor="username" className="form-label">
                     Username

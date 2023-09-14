@@ -1,4 +1,5 @@
 import { useState } from "react";
+import ShowMessage from "./ShowMessage";
 
 const Register = () => {
     //stato dei dati da compilare, all'inizio stringa vuota
@@ -8,6 +9,9 @@ const Register = () => {
         password: '',
         password_confirmation: '',
     });
+
+    //nuovo stato per il messaggio di errore
+    const [messageFromServer, setMessageFromServer] = useState(null);
 
     //quando un input field cambia, lo stato viene aggiornato
     const handleChange = (e) => {
@@ -37,18 +41,20 @@ const Register = () => {
             if (!response.ok) {
                 throw new Error(data.error || 'Something went wrong');
             }
-
-            console.log('User registered:', data);
-            // Here you can redirect the user or do something else
+            // Aggiorna il messaggio dal server
+            setMessageFromServer(JSON.stringify(data));
+            // Qua volendo si può reindirizzare l'user al login con un setTimeOut
         } catch (error) {
             console.error('There was a problem with the registration:', error.message);
-            // Here you can display the error message to the user
+            // Aggiorna il messaggio dal server
+            setMessageFromServer(JSON.stringify({ error: error.message }));
         }
     };
 
 
     return (
         <div>
+            <ShowMessage messageFromServer={messageFromServer} />
             <form onSubmit={handleSubmit}>
 
                 <label htmlFor="username" className="form-label">Username</label>
