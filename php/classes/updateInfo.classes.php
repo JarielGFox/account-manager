@@ -10,11 +10,6 @@ class UpdateInfo extends Dbh
         $stmt->execute([$account_id]);
         $existingData = $stmt->fetch(PDO::FETCH_ASSOC);
 
-        // if (!$existingData) {
-        //     echo json_encode(['error' => 'No existing data found for this account_id']);
-        //     http_response_code(404);
-        //     exit();
-        // }
 
         // Compare existing data with new data
         if (

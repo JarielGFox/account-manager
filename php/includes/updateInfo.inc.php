@@ -10,14 +10,6 @@ if (!isset($_SESSION)) {
     session_start();
 }
 
-// if (isset($_SESSION['account_id'])) {
-//     $account_id = $_SESSION['account_id'];
-// } else {
-//     echo json_encode(['error' => 'account_id not found in session']);
-//     http_response_code(400);
-//     exit();
-// }
-
 $rawData = file_get_contents('php://input');
 $jsonData = json_decode($rawData, true);
 
@@ -28,7 +20,7 @@ if (!empty($jsonData)) {
     $address = $jsonData['address'];
     $profile_pic = $jsonData['profile_pic'];
     $biography = $jsonData['biography'];
-    $account_id = $_SESSION['account_id'];
+    $account_id = $_SESSION['id'];
 
     $editInfo = new UpdateInfoContr($name, $surname, $date_of_birth, $address, $profile_pic, $biography, $account_id);
 
