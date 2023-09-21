@@ -65,7 +65,6 @@ class Login extends Dbh
                 'username' => $user[0]['username'],
                 'account_id' => $user[0]['id']
             ]]);
-            exit();
         }
     }
 }

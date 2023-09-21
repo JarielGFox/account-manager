@@ -22,6 +22,7 @@ if (!empty($jsonData)) {
     $login->loginUser();
 
     // Se tutto è andato bene, mostriamo il messaggio
-    echo json_encode(['success' => 'Welcome ' . $_SESSION['username']]);
+    // echo ['success' => 'Welcome ' . $_SESSION['username']];
+    // Da spostare magari all'interno della dashboard
     http_response_code(200);
 }
