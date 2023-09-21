@@ -33,7 +33,7 @@ const Navbar = ({ handleLogout }) => {
                             </ul>
                         </li>
                         <li className="nav-item">
-                            <Link to="/" aria-disabled>Some Stuff</Link>
+                            <Link to="/editBio" aria-disabled>Aggiorna Info</Link>
                         </li>
                     </ul>
                 </div>

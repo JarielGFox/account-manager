@@ -57,11 +57,13 @@ class Login extends Dbh
             }
             $_SESSION['id'] = $user[0]['id'];
             $_SESSION['username'] = $user[0]['username'];
+            $_SESSION['account_id'] = $user[0]['id'];  // serve per prendere l'account_id dalla sessione
 
             //Se tutto è andato per il verso giusto, il metodo restituisce i dettagli dell'utente in un array JSON.
             echo json_encode(['user' => [
                 'id' => $user[0]['id'],
-                'username' => $user[0]['username']
+                'username' => $user[0]['username'],
+                'account_id' => $user[0]['id']
             ]]);
             exit();
         }
