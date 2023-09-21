@@ -6,10 +6,6 @@ require_once('../classes/dbh.classes.php');
 require_once('../classes/login.classes.php');
 require_once('../classes/logincontr.classes.php');
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
 $rawData = file_get_contents('php://input');
 $jsonData = json_decode($rawData, true);
 

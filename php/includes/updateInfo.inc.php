@@ -6,10 +6,6 @@ require_once('../classes/dbh.classes.php');
 require_once('../classes/updateInfo.classes.php');
 require_once('../classes/updateInfoContr.classes.php');
 
-if (!isset($_SESSION)) {
-    session_start();
-}
-
 $rawData = file_get_contents('php://input');
 $jsonData = json_decode($rawData, true);
 
