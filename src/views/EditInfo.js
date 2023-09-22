@@ -7,8 +7,8 @@ const EditInfo = () => {
         surname: '',
         date_of_birth: '',
         address: '',
+        biography: '',
         profile_pic: '',
-        biography: ''
     });
 
     //stato per il messaggio di errore
@@ -31,6 +31,7 @@ const EditInfo = () => {
                 headers: {
                     'Content-Type': 'application/json'
                 },
+                credentials: 'include',
                 body: JSON.stringify(info)
             });
 

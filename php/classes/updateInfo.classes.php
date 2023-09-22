@@ -4,28 +4,9 @@ class UpdateInfo extends Dbh
 {
     protected function setBiography($name, $surname, $date_of_birth, $address, $profile_pic, $biography, $account_id)
     {
-        // Fetch existing data
-        $sql = "SELECT * FROM personal_info WHERE account_id = ?";
-        $stmt = $this->connect()->prepare($sql);
-        $stmt->execute([$account_id]);
-        $existingData = $stmt->fetch(PDO::FETCH_ASSOC);
-
-
-        // Compare existing data with new data
-        if (
-            $existingData['name'] === $name &&
-            $existingData['surname'] === $surname &&
-            $existingData['date_of_birth'] === $date_of_birth &&
-            $existingData['address'] === $address &&
-            $existingData['profile_pic'] === $profile_pic &&
-            $existingData['biography'] === $biography
-        ) {
-            // If the info is the same as before, exit and do nothing
-            return false;
-        }
-
-        // Otherwise, update the info
-        $sql = "UPDATE personal_info SET name = ?, surname = ?, date_of_birth = ?, address = ?, profile_pic = ?, biography = ? WHERE account_id = ?";
+        // Upsert query per inserire o modificare le personal info
+        $sql = "INSERT INTO personal_info (name, surname, date_of_birth, address, profile_pic, biography, account_id) VALUES (?, ?, ?, ?, ?, ?, ?)
+            ON DUPLICATE KEY UPDATE name = VALUES(name), surname = VALUES(surname), date_of_birth = VALUES(date_of_birth), address = VALUES(address), profile_pic = VALUES(profile_pic), biography = VALUES(biography)";
         $stmt = $this->connect()->prepare($sql);
 
         if (!$stmt->execute([$name, $surname, $date_of_birth, $address, $profile_pic, $biography, $account_id])) {
