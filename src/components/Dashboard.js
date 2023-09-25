@@ -1,7 +1,7 @@
 // importiamo Link dalla libreria
 import { Link } from 'react-router-dom';
 
-const Navbar = ({ handleLogout }) => {
+const Dashboard = ({ handleLogout }) => {
     return (
         <nav className="navbar navbar-expand-lg bg-body-tertiary">
             <h1 className="text-primary">Control Panel</h1>
@@ -42,4 +42,4 @@ const Navbar = ({ handleLogout }) => {
     );
 }
 
-export default Navbar;
+export default Dashboard;

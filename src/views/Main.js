@@ -1,4 +1,4 @@
-import Navbar from "../components/Navbar";
+import Dashboard from "../components/Dashboard";
 import { useNavigate } from "react-router-dom";
 
 const Main = () => {
@@ -28,8 +28,8 @@ const Main = () => {
     }
 
     return (
-        <div className="navbar">
-            <Navbar handleLogout={handleLogout} />
+        <div className="dashboard">
+            <Dashboard handleLogout={handleLogout} />
         </div>
     );
 }

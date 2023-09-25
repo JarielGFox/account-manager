@@ -12,6 +12,9 @@ const Login = () => {
     // redirect automatico con Navigate
     const navigate = useNavigate();
 
+    //stato per mostrare la password
+    const [showPassword, setShowPassword] = useState(false);
+
     //stato per il messaggio di errore
     const [messageFromServer, setMessageFromServer] = useState(null);
 
@@ -71,8 +74,9 @@ const Login = () => {
                 <label htmlFor="password" className="form-label">
                     Password
                 </label>
+                <i class="bi bi-eye-fill btn button" id="eyePassword" onClick={() => setShowPassword(!showPassword)}></i>
                 <input
-                    type="password"
+                    type={showPassword ? "text" : "password"}
                     name="password"
                     id="password"
                     placeholder="Password"
