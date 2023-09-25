@@ -1,4 +1,5 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import ShowMessage from "../components/ShowMessage";
 
 const EditInfo = () => {
@@ -11,6 +12,9 @@ const EditInfo = () => {
         profile_pic: '',
     });
 
+    // redirect automatico con Navigate
+    const navigate = useNavigate();
+
     //stato per il messaggio di errore
     const [messageFromServer, setMessageFromServer] = useState(null);
 
@@ -21,6 +25,30 @@ const EditInfo = () => {
             [name]: value
         });
     };
+
+    useEffect(() => {
+        //fetcha i dati esistenti quando il componente viene montato
+        const fetchData = async () => {
+            try {
+                const response = await fetch("http://localhost:8000/php/includes/getUserInfo.inc.php", {
+                    method: 'GET',
+                    credentials: "include", // serve? Lo scopriremo.
+                });
+
+                const data = await response.json();
+                if (data) {
+                    const { name, surname, date_of_birth, address, profile_pic, biography } = data;
+                    setInfo({ name, surname, date_of_birth, address, profile_pic, biography });
+                }
+            } catch (error) {
+                setMessageFromServer(JSON.stringify({ error: 'There was a problem fetching user info.' }));
+            }
+        };
+
+        fetchData().catch(() => {
+            setMessageFromServer(JSON.stringify({ error: 'Error fetching data.' }));
+        });
+    }, []);
 
     const handleSubmit = async (e) => {
         e.preventDefault();
@@ -42,6 +70,9 @@ const EditInfo = () => {
             }
 
             setMessageFromServer(JSON.stringify(data));
+            setTimeout(() => {
+                navigate('/main');  // Navigate to the Main.js view
+            }, 2500)
         } catch (error) {
             console.error('There was a problem updating info:', error.message)
             setMessageFromServer(JSON.stringify({ error: error.message }));
@@ -59,6 +90,7 @@ const EditInfo = () => {
                     type="text"
                     name="name"
                     id="name"
+                    value={info.name}
                     placeholder="first name"
                     className="form-control"
                     onChange={handleChange}
@@ -71,6 +103,7 @@ const EditInfo = () => {
                     type="text"
                     name="surname"
                     id="surname"
+                    value={info.surname}
                     placeholder="surname"
                     className="form-control"
                     onChange={handleChange}
@@ -83,6 +116,7 @@ const EditInfo = () => {
                     type="date"
                     name="date_of_birth"
                     id="date_of_birth"
+                    value={info.date_of_birth}
                     placeholder="date of birth"
                     className="form-control"
                     onChange={handleChange}
@@ -94,6 +128,7 @@ const EditInfo = () => {
                 <textarea
                     name="address"
                     id="address"
+                    value={info.address}
                     placeholder="your address"
                     className="form-control"
                     onChange={handleChange}
@@ -105,6 +140,7 @@ const EditInfo = () => {
                 <textarea
                     name="biography"
                     id="biography"
+                    value={info.biography}
                     placeholder="a short biography"
                     className="form-control"
                     onChange={handleChange}
@@ -117,6 +153,7 @@ const EditInfo = () => {
                     type="text"
                     name="profile_pic"
                     id="profile_pic"
+                    value={info.profile_pic}
                     placeholder="immagine profilo"
                     className="form-control"
                     onChange={handleChange}

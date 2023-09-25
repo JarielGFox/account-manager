@@ -9,6 +9,7 @@ const Login = () => {
         password: "",
     });
 
+    // redirect automatico con Navigate
     const navigate = useNavigate();
 
     //stato per il messaggio di errore
