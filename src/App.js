@@ -1,6 +1,7 @@
 // per il routing importiamo queste proprietà
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
+import Navbar from "./components/Navbar";
 import Main from "./views/Main";
 import Register from "./components/Register";
 import Login from "./components/Login";
@@ -10,19 +11,19 @@ import EditInfo from "./views/EditInfo";
 function App() {
   return (
     <Router>
-      <div className="App">
-        <header className="App-header">
-          <div className="content">
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/register" element={<Register />} />
-              <Route path="/login" element={<Login />} />
-              <Route path="/main" element={<Main />} />
-              <Route path="/editBio" element={<EditInfo />} />
-            </Routes>
-          </div>
-        </header>
-      </div>
+
+      <header className="App-header">
+        <Navbar />
+        <div className="content">
+          <Routes>
+            <Route path="/" element={<Home />} />
+            <Route path="/register" element={<Register />} />
+            <Route path="/login" element={<Login />} />
+            <Route path="/main" element={<Main />} />
+            <Route path="/editBio" element={<EditInfo />} />
+          </Routes>
+        </div>
+      </header>
     </Router>
   );
 }

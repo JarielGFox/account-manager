@@ -12,13 +12,6 @@ const Home = () => {
             <p>
                 Registrati ed inizia il tuo viaggio nella digital homelessness.
             </p>
-            <p>
-                <Link to="/register">Registrati</Link>
-            </p>
-            <p>Hai già un account?</p>
-            <p>
-                <Link to="/login">LOGIN</Link>
-            </p>
         </div>
     );
 }
