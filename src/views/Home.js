@@ -1,9 +1,8 @@
-import { Link } from 'react-router-dom';
 import digitalclochard from '../assets/img/digitalclochard.gif';
 
 const Home = () => {
     return (
-        <div>
+        <div className="content">
             <p>
                 Welcome to Barbone digitale.
             </p>
