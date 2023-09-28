@@ -4,9 +4,9 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.scss";
 
-function Navbar() {
+function Navbar({ isLoggedIn, setIsLoggedIn }) {
     //stato per verificare se l'utente è loggato
-    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -60,6 +60,7 @@ function Navbar() {
         };
 
         checkLoginStatus();
+        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     //funzione per il logout

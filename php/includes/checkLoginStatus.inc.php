@@ -6,6 +6,8 @@ header("Content-Type: application/json");
 
 require_once('../classes/dbh.classes.php');
 
+//capire perchè non fa logout del tutto, verificare il passaggio delle props in react, vai in App.js
+
 $response = [];
 
 if (isset($_SESSION['id'])) {

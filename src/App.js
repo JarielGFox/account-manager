@@ -1,3 +1,4 @@
+import React, { useState } from 'react';
 // per il routing importiamo queste proprietà
 import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Home from "./views/Home";
@@ -8,13 +9,16 @@ import Login from "./components/Login";
 import './App.css';
 import EditInfo from "./views/EditInfo";
 
-function App({ isLoggedIn, setIsLoggedIn }) {
+function App() {
+  //stato del login
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  // controllare il passaggio delle props: App(parent component), Navbar(index.js), Login.js, Main.js
 
   return (
     <Router>
 
       <header className="App-header">
-        <Navbar />
+        <Navbar isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />
         <div className="content">
           <Routes>
             <Route path="/" element={<Home />} />

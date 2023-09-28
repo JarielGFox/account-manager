@@ -2,7 +2,7 @@ import { useState } from "react";
 import { useNavigate } from 'react-router-dom';
 import ShowMessage from "./ShowMessage";
 
-const Login = () => {
+const Login = ({ isLoggedIn, setIsLoggedIn }) => {
     // State del form
     const [formLogin, setFormLogin] = useState({
         username: "",
@@ -48,8 +48,8 @@ const Login = () => {
             }
 
             setMessageFromServer(JSON.stringify(data));
+            setIsLoggedIn(true);
             navigate('/main');  // Navigate to the Main.js view
-            // isLoggedIn(true);
         } catch (error) {
             console.error('There was a problem with the login:', error.message)
             setMessageFromServer(JSON.stringify({ error: error.message }));
