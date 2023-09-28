@@ -43,6 +43,8 @@
             top: 0;
             right: 100%;
             bottom: 0;
+            width: 100%;
+            height: 100vh;
             position: fixed;
             display: flex;
             flex-direction: column;
@@ -53,7 +55,6 @@
             backdrop-filter: blur(2px);
             transform: translate(0);
             transition: 0.3s ease transform;
-
 
             @include breakpoint(md) {
                 transform: none;
@@ -120,7 +121,6 @@
                 transition: 0.3s ease all;
                 margin: 0.50em 0.50em;
 
-
                 &:hover {
                     border-color: rgb(162, 162, 246);
                     background: rgba(rgb(162, 162, 246), 0.1);
@@ -134,14 +134,10 @@
                 }
 
                 &__login {
-
                     background-color: rgb(32, 32, 32);
                     color: #fff;
-
                 }
-
             }
-
 
             &.isMenu {
                 transform: translate(100%);

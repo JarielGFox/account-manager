@@ -2,7 +2,7 @@ import digitalclochard from '../assets/img/digitalclochard.gif';
 
 const Home = () => {
     return (
-        <div className="content">
+        <div>
             <p>
                 Welcome to Barbone digitale.
             </p>
