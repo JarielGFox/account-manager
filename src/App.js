@@ -8,7 +8,8 @@ import Login from "./components/Login";
 import './App.css';
 import EditInfo from "./views/EditInfo";
 
-function App() {
+function App({ isLoggedIn, setIsLoggedIn }) {
+
   return (
     <Router>
 
@@ -18,8 +19,8 @@ function App() {
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/register" element={<Register />} />
-            <Route path="/login" element={<Login />} />
-            <Route path="/main" element={<Main />} />
+            <Route path="/login" element={<Login isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
+            <Route path="/main" element={<Main isLoggedIn={isLoggedIn} setIsLoggedIn={setIsLoggedIn} />} />
             <Route path="/editBio" element={<EditInfo />} />
           </Routes>
         </div>

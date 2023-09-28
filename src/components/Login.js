@@ -9,6 +9,7 @@ const Login = () => {
         password: "",
     });
 
+
     // redirect automatico con Navigate
     const navigate = useNavigate();
 
@@ -48,6 +49,7 @@ const Login = () => {
 
             setMessageFromServer(JSON.stringify(data));
             navigate('/main');  // Navigate to the Main.js view
+            // isLoggedIn(true);
         } catch (error) {
             console.error('There was a problem with the login:', error.message)
             setMessageFromServer(JSON.stringify({ error: error.message }));

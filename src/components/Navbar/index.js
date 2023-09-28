@@ -1,13 +1,12 @@
 import React, { useEffect, useState } from "react";
 import { BiMenuAltRight } from "react-icons/bi";
 import { AiOutlineClose } from "react-icons/ai";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./navbar.scss";
 
 function Navbar() {
     //stato per verificare se l'utente è loggato
     const [isLoggedIn, setIsLoggedIn] = useState(false);
-
 
     const [menuOpen, setMenuOpen] = useState(false);
 
@@ -38,6 +37,8 @@ function Navbar() {
         setMenuOpen((p) => !p);
     };
 
+    const navigate = useNavigate();
+
     //useEffect per fare API call al BE per verificare se l'utente è correttamente loggato
     useEffect(() => {
         const checkLoginStatus = async () => {
@@ -48,7 +49,7 @@ function Navbar() {
                 });
 
                 const data = await response.json();
-                if (data.loggedIn) {
+                if (data.status === 'loggedIn') {
                     setIsLoggedIn(true);
                 } else {
                     setIsLoggedIn(false);
@@ -60,6 +61,30 @@ function Navbar() {
 
         checkLoginStatus();
     }, []);
+
+    //funzione per il logout
+    const handleLogout = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/php/includes/logout.inc.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            });
+
+            const data = await response.json();
+            if (!response.ok) {
+                throw new Error(data.error || 'Something went wrong')
+            }
+
+            console.log('Successfully logged out!');
+            setIsLoggedIn(false);
+            navigate('/login');
+        } catch (error) {
+            console.error('There was a problem with the logout:', error.message);
+        }
+
+    }
 
     return (
         <header className="header">
@@ -86,9 +111,7 @@ function Navbar() {
                         </li>
 
                         {isLoggedIn ? (
-                            <Link to="/logout">
-                                <button className="btn btn__logout">Logout</button>
-                            </Link>
+                            <button className="btn btn__logout" onClick={handleLogout}>Logout</button>
                         ) : (
                             <>
                                 <Link to="/register">
