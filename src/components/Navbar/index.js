@@ -5,11 +5,17 @@ import { Link } from "react-router-dom";
 import "./navbar.scss";
 
 function Navbar() {
+    //stato per verificare se l'utente è loggato
+    const [isLoggedIn, setIsLoggedIn] = useState(false);
+
+
     const [menuOpen, setMenuOpen] = useState(false);
+
     const [size, setSize] = useState({
         width: 0,
         height: 0,
     });
+
     useEffect(() => {
         const handleResize = () => {
             setSize({
@@ -31,6 +37,29 @@ function Navbar() {
     const menuToggleHandler = () => {
         setMenuOpen((p) => !p);
     };
+
+    //useEffect per fare API call al BE per verificare se l'utente è correttamente loggato
+    useEffect(() => {
+        const checkLoginStatus = async () => {
+            try {
+                const response = await fetch('http://localhost:8000/php/includes/checkLoginStatus.inc.php', {
+                    method: 'GET',
+                    credentials: 'include',
+                });
+
+                const data = await response.json();
+                if (data.loggedIn) {
+                    setIsLoggedIn(true);
+                } else {
+                    setIsLoggedIn(false);
+                }
+            } catch (error) {
+                console.error('Failed to check login status:', error.message)
+            }
+        };
+
+        checkLoginStatus();
+    }, []);
 
     return (
         <header className="header">
@@ -56,12 +85,20 @@ function Navbar() {
                             <Link to="#">Sezione 3</Link>
                         </li>
 
-                        <Link to="/register">
-                            <button className="btn">Register</button>
-                        </Link>
-                        <Link to="/login">
-                            <button className="btn btn__login">Login</button>
-                        </Link>
+                        {isLoggedIn ? (
+                            <Link to="/logout">
+                                <button className="btn btn__logout">Logout</button>
+                            </Link>
+                        ) : (
+                            <>
+                                <Link to="/register">
+                                    <button className="btn">Register</button>
+                                </Link>
+                                <Link to="/login">
+                                    <button className="btn btn__login">Login</button>
+                                </Link>
+                            </>
+                        )}
                     </ul>
                 </nav>
                 <div className="header__content__toggle">

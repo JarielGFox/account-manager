@@ -74,7 +74,7 @@ const Login = () => {
                 <label htmlFor="password" className="form-label">
                     Password
                 </label>
-                <i class="bi bi-eye-fill btn button" id="eyePassword" onClick={() => setShowPassword(!showPassword)}></i>
+                <i className="bi bi-eye-fill btn button" id="eyePassword" onClick={() => setShowPassword(!showPassword)}></i>
                 <input
                     type={showPassword ? "text" : "password"}
                     name="password"
