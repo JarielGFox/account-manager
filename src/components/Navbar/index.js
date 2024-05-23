@@ -4,11 +4,13 @@ import { AiOutlineClose } from "react-icons/ai";
 import { Link, useNavigate } from "react-router-dom";
 import "./navbar.scss";
 
-function Navbar({ isLoggedIn, setIsLoggedIn }) {
+// problema di login e logout è nel backend.Probabile rompe ancora il cazzo con ID e account_id;
+
+function Navbar({ isLoggedIn, setIsLoggedIn, setForceUpdateKey }) {
     //stato per verificare se l'utente è loggato
-
-
     const [menuOpen, setMenuOpen] = useState(false);
+
+    console.log("Props in Navbar:", { isLoggedIn, setIsLoggedIn });
 
     const [size, setSize] = useState({
         width: 0,
@@ -40,31 +42,35 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
     const navigate = useNavigate();
 
     //useEffect per fare API call al BE per verificare se l'utente è correttamente loggato
-    useEffect(() => {
-        const checkLoginStatus = async () => {
-            try {
-                const response = await fetch('http://localhost:8000/php/includes/checkLoginStatus.inc.php', {
-                    method: 'GET',
-                    credentials: 'include',
-                });
 
-                const data = await response.json();
-                if (data.status === 'loggedIn') {
-                    setIsLoggedIn(true);
-                } else {
-                    setIsLoggedIn(false);
-                }
-            } catch (error) {
-                console.error('Failed to check login status:', error.message)
+    const checkLoginStatus = async () => {
+        try {
+            const response = await fetch('http://localhost:8000/php/includes/checkLoginStatus.inc.php', {
+                method: 'GET',
+                credentials: 'include',
+            });
+
+            const data = await response.json();
+            if (data.status === 'loggedIn') {
+                setIsLoggedIn(true);
+            } else {
+                setIsLoggedIn(false);
             }
-        };
+        } catch (error) {
+            console.error('Failed to check login status:', error.message)
+        }
+        console.log('After checkLoginStatus:', isLoggedIn); // Log after setting the state
+    };
 
+    // useEffect to call checkLoginStatus on mount
+    useEffect(() => {
+        console.log('Before checkLoginStatus:', isLoggedIn); // Log before calling the function
         checkLoginStatus();
-        // eslint-disable-next-line react-hooks/exhaustive-deps
     }, []);
 
     //funzione per il logout
     const handleLogout = async () => {
+        console.log('Before handleLogout:', isLoggedIn); // Log before calling the function
         try {
             const response = await fetch('http://localhost:8000/php/includes/logout.inc.php', {
                 method: 'POST',
@@ -80,12 +86,15 @@ function Navbar({ isLoggedIn, setIsLoggedIn }) {
 
             console.log('Successfully logged out!');
             setIsLoggedIn(false);
+            // Force re-render
+            setForceUpdateKey(prevKey => prevKey + 1);
+            console.log('After handleLogout:', isLoggedIn); // Log after setting the state
+            checkLoginStatus();
             navigate('/login');
         } catch (error) {
             console.error('There was a problem with the logout:', error.message);
         }
-
-    }
+    };
 
     return (
         <header className="header">

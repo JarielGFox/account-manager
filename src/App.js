@@ -12,7 +12,8 @@ import EditInfo from "./views/EditInfo";
 function App() {
   //stato del login
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  // controllare il passaggio delle props: App(parent component), Navbar(index.js), Login.js, Main.js
+  // controllare il passaggio delle props: FATTO.
+  // problema è nel backend. Probabile rompe ancora il cazzo con ID e account_id;
 
   return (
     <Router>
